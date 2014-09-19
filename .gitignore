@@ -1,0 +1,5 @@
+bin/
+gen/
+Thumbs.db
+assets/crashlytics-build.properties
+res/values/com_crashlytics_export_strings.xml
