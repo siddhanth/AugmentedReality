@@ -38,4 +38,6 @@
 
     <string name="splash_screen_description">Vuforia Splash</string>
     
+    <string name="content_desc_restaurant_logo">Restaurant Logo</string>
+    
 </resources>

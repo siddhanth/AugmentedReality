@@ -813,16 +813,16 @@ public class Books extends Activity implements SampleApplicationControl
             if (mBookData != null)
             {
                 // Generates a View to display the book data
-                BookOverlayView productView = new BookOverlayView(
+                RestaurantOverlayView productView = new RestaurantOverlayView(
                     Books.this);
                 
                 // Updates the view used as a 3d Texture
                 updateProductView(productView, mBookData);
                 
                 // Sets the layout params
-                productView.setLayoutParams(new LayoutParams(
+                /*productView.setLayoutParams(new LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+                    RelativeLayout.LayoutParams.WRAP_CONTENT));*/
                 
                 // Sets View measure - This size should be the same as the
                 // texture generated to display the overlay in order for the
@@ -925,8 +925,8 @@ public class Books extends Activity implements SampleApplicationControl
     }
     
     
-    /** Updates a BookOverlayView with the Book data specified in parameters */
-    private void updateProductView(BookOverlayView productView, Book book)
+    /** Updates a RestaurantOverlayView with the Book data specified in parameters */
+    private void updateProductView(RestaurantOverlayView productView, Book book)
     {
         productView.setBookTitle(book.getTitle());
         productView.setBookPrice(book.getPriceList());
