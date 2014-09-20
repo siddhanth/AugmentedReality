@@ -40,6 +40,8 @@
         Add this permission to allow opening network sockets.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <!--
         Add this permission to check which network access properties (e.g.

@@ -557,9 +557,15 @@ public class Books extends Activity implements SampleApplicationControl
     
     
     /** Starts the WebView with the Book Extra Data */
-    public void startWebView(int value)
+    public void startWebView(String ph)
     {
-        // Checks that we have a valid book data
+    	
+    	Intent callIntent = new Intent(Intent.ACTION_CALL);
+		
+		callIntent.setData(Uri.parse("tel:" + ph));
+		this.startActivity(callIntent);			
+		
+        /*// Checks that we have a valid book data
         if (mBookData != null)
         {
             // Starts an Intent to open the book URL
@@ -567,7 +573,7 @@ public class Books extends Activity implements SampleApplicationControl
                 Uri.parse(mBookData.getBookUrl()));
             
             startActivity(viewIntent);
-        }
+        }*/
     }
     
     
@@ -673,6 +679,7 @@ public class Books extends Activity implements SampleApplicationControl
         });
     }
     
+    RestaurantData rData;
     
     /**
      * Generates a texture for the book data fetching the book info from the
@@ -816,13 +823,19 @@ public class Books extends Activity implements SampleApplicationControl
                 RestaurantOverlayView productView = new RestaurantOverlayView(
                     Books.this);
                 
+                rData = new RestaurantData();
+                rData.setDescription("This is the resturant description");
+                rData.setPhoneNumber("9901727240");
+                rData.setRating(3.5);
+                rData.setTitle("Restaurant title");
+                
                 // Updates the view used as a 3d Texture
-                updateProductView(productView, mBookData);
+                updateProductView(productView, rData);
                 
                 // Sets the layout params
-                /*productView.setLayoutParams(new LayoutParams(
+                productView.setLayoutParams(new LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));*/
+                    RelativeLayout.LayoutParams.WRAP_CONTENT));
                 
                 // Sets View measure - This size should be the same as the
                 // texture generated to display the overlay in order for the
@@ -926,15 +939,12 @@ public class Books extends Activity implements SampleApplicationControl
     
     
     /** Updates a RestaurantOverlayView with the Book data specified in parameters */
-    private void updateProductView(RestaurantOverlayView productView, Book book)
+    private void updateProductView(RestaurantOverlayView productView, RestaurantData rData)
     {
-        productView.setBookTitle(book.getTitle());
-        productView.setBookPrice(book.getPriceList());
-        productView.setYourPrice(book.getPriceYour());
-        productView.setBookRatingCount(book.getRatingTotal());
-        productView.setRating(book.getRatingAvg());
-        productView.setBookAuthor(book.getAuthor());
-        productView.setCoverViewFromBitmap(book.getThumb());
+        productView.setRestTitle(rData.getTitle());
+        productView.setRestDec(rData.getDescription());
+        productView.setRating(rData.getRating());
+        productView.setCallButton(rData.getPhoneNumber());
     }
     
     
@@ -1057,7 +1067,7 @@ public class Books extends Activity implements SampleApplicationControl
                     && y > screenUp)
                 {
                     // Starts the webView
-                    startWebView(0);
+                    startWebView(rData.getPhoneNumber());
                 }
             }
             

@@ -7,23 +7,30 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 package com.qualcomm.vuforia.samples.Books.app.Books;
 
-import com.qualcomm.vuforia.samples.Books.R;
-
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.qualcomm.vuforia.samples.Books.R;
 
 // Custom View with Restaurant Overlay Data
 public class RestaurantOverlayView extends RelativeLayout
 {
+	Context context;
+	
     public RestaurantOverlayView(Context context)
     {
         this(context, null);
+        this.context = context; 
     }
     
     
@@ -52,60 +59,47 @@ public class RestaurantOverlayView extends RelativeLayout
     }
     
     
-    // Sets Book title in View
-    public void setBookTitle(String bookTitle)
+    public void setRestTitle(String restTitle)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_title);
-        tv.setText(bookTitle);
+        TextView tv = (TextView) findViewById(R.id.textview_restaurant_name);
+        tv.setText(restTitle);
     }
     
     
-    // Sets Book Author in View
-    public void setBookAuthor(String bookAuthor)
+    public void setRestDec(String restDesc)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_author);
-        tv.setText(bookAuthor);
+        TextView tv = (TextView) findViewById(R.id.textview_restaurant_desc);
+        tv.setText(restDesc);
     }
     
     
-    // Sets Book Price in View
-    public void setBookPrice(String bookPrice)
+    public void setCallButton(String phoneNumber)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_price_old);
-        tv.setText(getContext().getString(R.string.string_$) + bookPrice);
+        Button callButton = (Button) findViewById(R.id.button_call);
+        callButton.setText(phoneNumber);
+        final String ph = phoneNumber;
+        Toast.makeText(context, "clicked call button", Toast.LENGTH_LONG).show();
+        callButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent callIntent = new Intent(Intent.ACTION_CALL);
+				
+				callIntent.setData(Uri.parse("tel:" + ph));
+				context.startActivity(callIntent);				
+			}
+		});
     }
     
     
-    // Sets Book Number of Ratings in View
-    public void setBookRatingCount(String ratingCount)
+    public void setRating(double rating)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_rating_text);
-        tv.setText(getContext().getString(R.string.string_openParentheses)
-            + ratingCount + getContext().getString(R.string.string_ratings)
-            + getContext().getString(R.string.string_closeParentheses));
+        RatingBar rb = (RatingBar) findViewById(R.id.ratingbar_restaurant_rating);
+        rb.setRating((float) rating);
     }
     
-    
-    // Sets Book Special Price in View
-    public void setYourPrice(String yourPrice)
-    {
-        TextView tv = (TextView) findViewById(R.id.badge_price_value);
-        tv.setText(getContext().getString(R.string.string_$) + yourPrice);
-    }
-    
-    
-    // Sets Book Cover in View from a bitmap
-    public void setCoverViewFromBitmap(Bitmap coverBook)
-    {
-        ImageView iv = (ImageView) findViewById(R.id.custom_view_book_cover);
-        iv.setImageBitmap(coverBook);
-    }
-    
-    
-    // Sets Book Rating in View
-    public void setRating(String rating)
-    {
-        RatingBar rb = (RatingBar) findViewById(R.id.custom_view_rating);
-        rb.setRating(Float.parseFloat(rating));
+    public void setRestImage(){
+    	ImageView restLogo = (ImageView) findViewById(R.id.image_restaurant_logo);
+    	restLogo.setImageResource(R.drawable.badge_background);
     }
 }
